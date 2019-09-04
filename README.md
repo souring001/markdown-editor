@@ -1,3 +1,6 @@
+# markdown-editor
+A markdown file editor build on Electron and React.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

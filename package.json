@@ -2,8 +2,10 @@
   "name": "hello-react",
   "version": "0.1.0",
   "main": "public/main.js",
+  "homepage": "./",
   "private": true,
   "dependencies": {
+    "electron-is-dev": "^1.1.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1"
@@ -13,7 +15,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-start": "electron ."
+    "electron-start": "electron .",
+    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "preelectron-pack": "npm run build",
+    "electron-pack": "electron-builder -c.extraMetadata.main=build/main.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -31,7 +36,20 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^4.1.2",
     "electron": "^6.0.7",
-    "electron-packager": "^14.0.5"
+    "electron-builder": "^21.2.0",
+    "electron-packager": "^14.0.5",
+    "wait-on": "^3.3.0"
+  },
+  "build": {
+    "appId": "com.hello",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   }
 }
