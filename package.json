@@ -5,6 +5,7 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
+    "@skidding/react-codemirror": "^1.0.2",
     "electron-is-dev": "^1.1.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
