@@ -1,4 +1,5 @@
 import React from 'react';
+import SplitPane from 'react-split-pane';
 import logo from './logo.svg';
 import './App.css';
 
