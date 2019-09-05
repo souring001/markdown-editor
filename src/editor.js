@@ -8,17 +8,22 @@ require('codemirror/mode/markdown/markdown');
 require('codemirror/theme/monokai.css');
 
 class Editor extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
+    this.updateCode = this.updateCode.bind(this);
   }
 
-  render(){
+  updateCode(e) {
+    this.props.onChange(e);
+  }
+
+  render() {
     const options = {
       mode: 'markdown',
       theme: 'monokai'
     }
     return (
-      <CodeMirror value={this.props.value} options={options} height="100%"/>
+      <CodeMirror value={this.props.value} onChange={this.updateCode} options={options} height="100%"/>
     );
   }
 }

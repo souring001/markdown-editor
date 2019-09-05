@@ -30,8 +30,9 @@ function createWindow () {
 
   // added by Tzahi Vidas tutorial
   app.setAboutPanelOptions({
-    applicationName: "Markdown Editor",
-    applicationVersion: "0.0.1"
+    applicationName: ":thinking_face:",
+    applicationVersion: "Face Version",
+    version: "0.0.1"
   });
 }
 

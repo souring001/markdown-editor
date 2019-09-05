@@ -1,6 +1,7 @@
 {
-  "name": "hello-react",
+  "name": "thinking_face",
   "version": "0.1.0",
+  "description": "A markdown editor build on Electron and React.",
   "main": "public/main.js",
   "homepage": "./",
   "private": true,
@@ -38,6 +39,7 @@
       "last 1 safari version"
     ]
   },
+  "author": "Mr.Face",
   "devDependencies": {
     "concurrently": "^4.1.2",
     "electron": "^6.0.7",
@@ -46,7 +48,7 @@
     "wait-on": "^3.3.0"
   },
   "build": {
-    "appId": "com.hello",
+    "appId": "com.face",
     "files": [
       "build/**/*",
       "node_modules/**/*"
