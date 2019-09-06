@@ -5,12 +5,32 @@ import logo from './logo.svg';
 import Editor from './editor.js';
 import './App.css';
 
+const fs = window.require('fs');
+const electron = window.require('electron');
+const ipc = electron.ipcRenderer;
+const remote = electron.remote;
+const dialog = remote.dialog;
+
 class App extends React.Component {
   constructor(props) {
     super();
+
+    ipc.on('save-file', (event) => {
+      dialog.showSaveDialog((filename) => {
+        const content = this.state.markdownSrc;
+        fs.writeFile(filename, content, (err) => {
+          if (err) {
+            return console.log(err);
+          }
+          alert('The file has been successfully saved.');
+        });
+      });
+    });
+
     this.state = {
       markdownSrc: "# Hello World"
     }
+
     this.onMarkdownChange = this.onMarkdownChange.bind(this);
   }
 

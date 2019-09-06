@@ -12,14 +12,15 @@ const template = [
         label: 'Open...',
         accelerator: 'CmdOrCtrl+O',
         click(){
-          console.log('Open');
+          console.log('Cmd + O: Open');
         }
       },
       {
         label: 'Save...',
         accelerator: 'CmdOrCtrl+S',
         click(){
-          console.log('Save');
+          console.log('Cmd + S: Save');
+          saveFile();
         }
       }
     ]
@@ -120,6 +121,10 @@ if (process.platform === 'darwin') {
       }
     ]
   })
+}
+
+function saveFile() {
+  mainWindow.webContents.send('save-file');
 }
 
 function createWindow () {
