@@ -1,6 +1,7 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, dialog } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
+const fs = require('fs');
 
 let mainWindow;
 
@@ -13,6 +14,7 @@ const template = [
         accelerator: 'CmdOrCtrl+O',
         click(){
           console.log('Cmd + O: Open');
+          openFile();
         }
       },
       {
@@ -125,6 +127,22 @@ if (process.platform === 'darwin') {
 
 function saveFile() {
   mainWindow.webContents.send('save-file');
+}
+
+function openFile() {
+  dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [
+      { name: 'Markdown Files', extensions: ['md', 'markdown', 'txt'] }
+    ]
+  }, (files) => {
+    if (files) {
+      const filepath = files[0];
+      const content = fs.readFileSync(filepath).toString();
+      mainWindow.webContents.send('opened-file', content);
+      console.log(content);
+    }
+  });
 }
 
 function createWindow () {

@@ -27,6 +27,13 @@ class App extends React.Component {
       });
     });
 
+    ipc.on('opened-file', (event, content) => {
+      console.log(content);
+      this.setState({
+        markdownSrc: content
+      });
+    });
+
     this.state = {
       markdownSrc: "# Hello World"
     }
