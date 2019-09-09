@@ -130,14 +130,16 @@ function saveFile() {
 }
 
 function openFile() {
-  dialog.showOpenDialog({
+  const options = {
     properties: ['openFile'],
     filters: [
       { name: 'Markdown Files', extensions: ['md', 'markdown', 'txt'] }
     ]
-  }, (files) => {
-    if (files) {
+  }
+  dialog.showOpenDialog((files) => {
+    if (!files.canceled) {
       const filepath = files[0];
+      console.log(files);
       const content = fs.readFileSync(filepath).toString();
       mainWindow.webContents.send('opened-file', content);
       console.log(content);

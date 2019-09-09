@@ -16,7 +16,13 @@ class App extends React.Component {
     super();
 
     ipc.on('save-file', (event) => {
-      dialog.showSaveDialog((filename) => {
+      const options = {
+        title: 'Save a markdown file',
+        filters: [
+          { name: 'Markdown Files', extensions: ['md', 'markdown'] }
+        ]
+      }
+      dialog.showSaveDialog(options, (filename) => {
         const content = this.state.markdownSrc;
         fs.writeFile(filename, content, (err) => {
           if (err) {
