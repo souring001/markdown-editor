@@ -136,8 +136,8 @@ function openFile() {
       { name: 'Markdown Files', extensions: ['md', 'markdown', 'txt'] }
     ]
   }
-  dialog.showOpenDialog((files) => {
-    if (!files.canceled) {
+  dialog.showOpenDialog(options, (files) => {
+    if (files[0]) {
       const filepath = files[0];
       console.log(files);
       const content = fs.readFileSync(filepath).toString();
