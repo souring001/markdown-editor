@@ -5,35 +5,19 @@ import logo from './logo.svg';
 import Editor from './editor.js';
 import './App.css';
 
-const fs = window.require('fs');
-const electron = window.require('electron');
-const ipc = electron.ipcRenderer;
-const remote = electron.remote;
-const dialog = remote.dialog;
+const {ipcRenderer} = window.require('electron');
 
 class App extends React.Component {
   constructor(props) {
     super();
 
-    ipc.on('save-file', (event) => {
-      const options = {
-        title: 'Save a markdown file',
-        filters: [
-          { name: 'Markdown Files', extensions: ['md', 'markdown'] }
-        ]
-      }
-      dialog.showSaveDialog(options, (filename) => {
-        const content = this.state.markdownSrc;
-        fs.writeFile(filename, content, (err) => {
-          if (err) {
-            return console.log(err);
-          }
-          alert('The file has been successfully saved.');
-        });
-      });
+    ipcRenderer.on('save-file', (event) => {
+      console.log('save-file');
+      const content = this.state.markdownSrc;
+      event.sender.send('save-dialog', content);
     });
 
-    ipc.on('opened-file', (event, content) => {
+    ipcRenderer.on('opened-file', (event, content) => {
       console.log(content);
       this.setState({
         markdownSrc: content

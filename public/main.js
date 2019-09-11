@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, dialog } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const fs = require('fs');
@@ -165,6 +165,23 @@ function createWindow () {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
+
+  ipcMain.on('save-dialog', (event, content) => {
+    console.log('save-dialog');
+    const options = {
+      title: 'Save a markdown file',
+      filters: [
+        { name: 'Markdown Files', extensions: ['md', 'markdown'] }
+      ]
+    }
+    dialog.showSaveDialog(options, (filename) => {
+      fs.writeFile(filename, content, (err) => {
+        if (err) {
+          return console.log(err);
+        }
+      });
+    });
+  });
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
